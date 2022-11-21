@@ -1,0 +1,14 @@
+.price {
+    color: green;
+}
+
+ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+
+li {
+    border: 1px solid black;
+    margin-bottom: 12px;
+}
