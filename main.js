@@ -1,6 +1,9 @@
-//console.log(1)
-
-fetch('http://localhost:3000/api/wishes')
+// ====== CONFIG & GLOBAL VARS ====== //
+const isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+const serverUrl = "https://wishlist-fzb7.onrender.com/api/wishes";
+const endpoint = isLocalhost ? "http://localhost:3000" : serverUrl;
+console.log(isLocalhost);
+fetch(`${endpoint}/api/wishes`)
     .then(response => response.json())
     .then(function (wishes) {
         renderWishes(wishes);
