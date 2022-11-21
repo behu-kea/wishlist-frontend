@@ -1,6 +1,6 @@
 // ====== CONFIG & GLOBAL VARS ====== //
 const isLocalhost = location.hostname === "localhost" || location.hostname === "127.0.0.1";
-const serverUrl = "https://wishlist-fzb7.onrender.com/api/wishes";
+const serverUrl = "https://wishlist-fzb7.onrender.com";
 const endpoint = isLocalhost ? "http://localhost:3000" : serverUrl;
 console.log(isLocalhost);
 fetch(`${endpoint}/api/wishes`)
