@@ -6,13 +6,13 @@ fetch(`http://localhost:3000/api/wishes`)
     });
 
 function renderWishes(wishes) {
-    console.log(wishes);
+    //console.log(wishes);
     const ul = document.querySelector('ul#wishes');
     ul.innerHTML = '';
-    console.log(ul);
+    //console.log(ul);
     for (let i = 0; i < wishes.length; i++) {
         const wish = wishes[i];
-        console.log(wish);
+        //console.log(wish);
         const li = document.createElement('li');
         li.innerHTML = `
             <p class="text">${wish.text}</p>
@@ -23,34 +23,58 @@ function renderWishes(wishes) {
 }
 
 function registerEvents(wishes) {
-    console.log(wishes);
     const button = document.querySelector('button.filter');
-    console.log(button);
     button.addEventListener('click', function() {
-        console.log('button clicked');
         const inputElement = document.querySelector('input');
-        console.log(inputElement);
         const minimumPrice = inputElement.value;
-        console.log(minimumPrice);
+
+        // approach 1 to filtering
         const filteredWishes = [];
         for (let i = 0; i < wishes.length; i++) {
             const wish = wishes[i];
-            console.log(wish.price);
-            console.log(minimumPrice);
-            console.log(wish.price > minimumPrice);
+            debugger;
             if(parseFloat(wish.price) > parseFloat(minimumPrice)) {
                 filteredWishes.push(wish);
             }
         }
 
+        // approach 2 to filtering wishes using the .filter method
         const filteredWishesFilter = wishes.filter(wish => parseFloat(wish.price) > parseFloat(minimumPrice));
-
-        console.log(filteredWishesFilter);
 
         renderWishes(filteredWishesFilter);
     })
-
 }
 
 
+const textInput = document.querySelector('input#text');
+const descriptionInput = document.querySelector('input#description');
+const priceInput = document.querySelector('input#price');
+const createNewItemButton = document.querySelector('button#new-wish');
+console.log(textInput, descriptionInput, priceInput, createNewItemButton);
+
+createNewItemButton.addEventListener('click', function () {
+    console.log('in create new wish');
+
+    const text = textInput.value;
+    const description = descriptionInput.value;
+    const price = priceInput.value;
+    const wish =  {
+        text: text,
+        description: description,
+        price: price,
+    }
+    console.log(text, description, price);
+
+    fetch('http://localhost:3000/api/wishes', {
+        method: "POST",
+        body: JSON.stringify(wish),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then((response) => response.json())
+        .then(function (isSuccessfulString) {
+            console.log(isSuccessfulString);
+        });
+});
 
